@@ -1,0 +1,22 @@
+<% @title="#{@singer.name}" %>
+
+<% content_for :right_content do %>
+	<h2>歌曲</h2>
+	<% @singer.musics.each do |m|%>
+	  <p>
+	    <%= link_to m.name,"/music/#{m.id}"%>
+	  </p>
+	<% end%>
+	<div style="clear: all;"></div>	
+<% end %>
+
+
+<div class="obss">
+	<h2>专辑</h2>
+	<% @singer.albums.each do |a|%>
+	<dl class="obs">		
+		<dt><%= link_to album_image_tag(a,:size=>:s), "/album/#{a.id}" %></dt>
+		<dd><%= link_to a.name, "/album/#{a.id}" %></dd>
+	</dl>	
+	<% end%>
+</div>

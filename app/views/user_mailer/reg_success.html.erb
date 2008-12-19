@@ -1,0 +1,13 @@
+亲爱的<%= @mail["nick_name"] %>，
+<% url="http://www.ifeelfine.cn/activate/?code=#{@mail["activate_code"]+@mail["id"].to_s}" %>
+感谢您注册I Feel Fine!
+
+只要点击这个链接: <%= url %>
+就能马上激活您的帐户!
+
+(如果您不能看到或者点击此链接，请将以下链接复制到浏览器地址栏中访问，也可以成功完成注册！ 
+
+<%= url %>
+
+
+

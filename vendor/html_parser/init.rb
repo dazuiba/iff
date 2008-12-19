@@ -1,0 +1,22 @@
+require 'benchmark'
+RAILS_ROOT='../../' if not defined? RAILS_ROOT
+require "#{RAILS_ROOT}/lib/string_ext.rb"
+require 'hpricot'
+require 'active_support'
+require 'ostruct'
+require "util"
+require "parse_module.rb"
+
+require 'active_resource'
+
+ActiveResource::Base.instance_eval  do
+	def collection_name
+		element_name
+	end
+end
+
+module Resource
+	class Singer< ActiveResource::Base
+		self.site = "http://localhost:3002"
+	end
+end

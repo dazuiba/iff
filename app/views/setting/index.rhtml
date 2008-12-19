@@ -1,0 +1,31 @@
+<% @title="#{@current_user.nick_name}的设置" %>
+<%
+ def _setting(options={},&block) 
+	concat %[<tr><td class="m" align="right" valign="top">#{options[:display_name]}:</td>
+						<td valign="top">#{capture(&block)}
+						<br/><br/></td></tr>],block.binding
+ end
+%>
+<div class="xbar"><div><span class="now"><span>个人信息</span></span> </div></div>
+<%= clear_float %>
+<% form_for @current_user,:url=>"/setting" do|form| %>
+	<table cellspacing="5" align="center">
+		<% _setting(:display_name=>"名　号") do %>
+			<%= form.text_field "nick_name",:size=>5,:maxlength=>15 %>
+		<% end %>
+		<% _setting(:display_name=>"头　像") do %>
+		  <% if @current_user.logo? %>
+			  <%= user_image_tag(@current,:size=>:l,:style=>"margin: 10px; float: left;")  %>
+				<div style="margin: 10px; float: left;">
+					<%= user_image_tag(@current)%><br>头像图标				
+				</div>
+				<%= link_to "更新", :action => "logo" %>				
+			<% else %>
+				<%= link_to "放你的头像上来", :action => "logo" %>
+			<% end %>
+		<% end %>
+		<% _setting(:display_name=>"自我介绍") do %>
+			<%= form.text_area "intro",:cols=>49,:rows=>12%>
+		<% end %>
+	</table>
+<% end %>

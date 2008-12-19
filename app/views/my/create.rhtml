@@ -1,0 +1,29 @@
+<% @title="写日记" %>
+<form class="j a_note_form" method="post" action="/note/create" id="form_note"><input type="hidden" value="0" name="last_photo_id" id="last_pid"/><input type="hidden" value="0" id="photo_sum"/><div id="n_title">
+    <label for="title" class="pl2">题目：</label><br/>
+    <input type="text" maxlength="100" size="50" value="" name="note_title" class="notnull" id="title"/>
+    <div class="errnotnull hidden">给你的日记加一个标题吧</div>
+    </div><br/><div id="n_text"><a id="previewjs" href="javascript:void(0)" style="margin-left: 20px; float: right;">预览</a>
+    <span class="hidden rr pl" id="pre_wait">载入中...</span>
+    <a style="margin-left: 20px; float: right;" class="rr" id="addlink" href="javascript:void(0)">添加链接</a>
+    <span class="hidden rr pl" id="addpic_wait">正在上传...</span>
+    <input type="submit" value="添加图片" class="minisubmit rr" name="upload_photo" id="addpic_b" style="display: none;"/>
+    <a class="rr hidden" id="addpic" href="javascript:void(0)" style="display: inline;">添加图片</a>
+    
+    <label for="text" class="pl2">正文：</label><br/>
+    <div style="display: none;" id="preview-text">
+    </div>
+    <div id="edit-text">
+    <textarea style="width: 629px; height: 380px;" name="note_text" class="notnull" id="text"/>
+    <div class="errnotnull hidden">日记的正文不能为空</div>
+    </div>
+    </div><br/><div class="pl" id="n_setting"><div class="ll"><input type="radio" value="P" checked="checked" name="note_privacy"/>
+    <span> 所有人可见</span>
+    <input type="radio" value="S" name="note_privacy"/>
+    <span> 仅朋友可见</span>
+    <input type="radio" value="X" name="note_privacy"/>
+    <span> 仅自己可见</span>
+    </div><div class="rr"><input type="checkbox" name="cannot_reply"/>不允许回应</div>
+    </div><br class="clear"/><div class="hidden message" id="errormsg"/><div style="min-height: 50px; height: 50px;" class="thumblst pl hidden" id="loadingimg"><a href="javascript:void(0)" class="rr j a_cancel_upload">取消</a><img src="/pics/loading.gif"/><a name="loading"/>正在上传图片……</div>
+    <br/><div id="n_buttons"><input type="hidden" value="15219710" name="nid" id="nid"/><input type="submit" value="发表" name="note_submit"/>   <input type="submit" value="预览日记" name="note_preview" id="pre_b" style="display: none;"/>   
+    <input type="submit" value="取消" name="cancel_note" id="cancel_b" style="display: none;"/><input type="button" onclick="javascript:history.go(-1)" value="取消"/></div></form>

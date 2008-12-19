@@ -1,0 +1,31 @@
+<div class="indent">		
+	<div class="subjectwrap">
+		<div id="interest_sectl">
+			<%= render :partial => "interest_sectl",:locals => { :object =>@music} %>
+		</div>
+		<div id="info">
+			<span class="pl2"><%= @music.name %></span>
+			<br>
+			<% if not @music.play_urls.empty? %>
+			<div id="mpdiv"> 
+				<%= render :partial => "player", :locals => {:url=>@music.play_urls.first.url}%>
+		  </div>
+		<% end %>
+			<br>
+			<span>
+				<% if singer=@music.singer %>
+					<span class="pl">表演者</span>: <%= link_to singer.name, "/singer/#{singer.id}" %><br>
+				<% end %>				
+			</span>
+		</div>
+	</div>
+</div>
+<br clear="all">
+<div class="related_info">
+	<% if lyric=@music.lyric %>
+		<h2>歌词</h2>
+		<div class="indent">
+			<%= lyric.content %>
+		</div>
+	<% end %>
+</div>

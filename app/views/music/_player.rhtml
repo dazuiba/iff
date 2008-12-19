@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    var sdata = [];
+        sdata.push({
+            title : encodeURIComponent('<%=@music.name%>'),
+            url : '<%=url%>',
+            id : '<%=params[:id]%>',
+            isfull : 'True'
+        });
+</script>
+<div id="mainplayer" style="display:none;"></div>
+
+<script type="text/javascript" charset="utf-8">	
+ window.onload=playsong(0,true)
+</script>

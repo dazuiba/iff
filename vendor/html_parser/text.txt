@@ -1,0 +1,6 @@
+--- 
+:singer1: test
+'英文名': :eng_name
+'所属地区': :country
+#'专辑数': :album_count
+#'单曲数': :music_count

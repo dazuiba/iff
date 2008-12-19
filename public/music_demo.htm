@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>
+			I Feel Fine
+		</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+		<script src="/javascripts/jquery.js?1219211626" type="text/javascript"></script>
+		<script src="/javascripts/swfobject.js?1228369602" type="text/javascript"></script>
+		<script type="text/javascript" charset="utf-8">
+			
+			function playsong(n, hold){
+			    playnext = n+1<sdata.length ?  
+			        function(){playsong(n+1)} : function(){playsong(0, true)};
+			    mplayer = document.getElementById('mplayer');
+			    $('tr','#song').removeClass('selsong');
+			    $('#tr'+n).addClass('selsong');
+			    if(mplayer != undefined && mplayer.playsong != undefined){
+			        mplayer.playsong(sdata[n].url, sdata[n].id, hold?0:1, sdata[n].title, sdata[n].isdemo);
+			        return;
+			    }
+			
+			    var swfurl = '/javascripts/mainplayer.swf';
+			    var params = {wmode:"transparent"}
+			    var flashvars = {
+			        url: sdata[n].url,
+			        autoplay: (hold?'0':'1'),
+			        songid: sdata[n].id, 
+			        isdemo: (sdata[n].isfull=='True'?'0':'1'), 
+			        descri: sdata[n].title
+			    }
+			    var attributes = {
+			        id: "mplayer",
+			        name: "mplayer"
+			    };
+			    swfobject.embedSWF(swfurl, "mainplayer", "347", "40", "9.0.0","/javascripts/expressInstall.swf", flashvars, params, attributes);
+			}
+
+		</script>
+	</head>
+	<body>
+				<script type="text/javascript">
+				    var sdata = [];
+				        sdata.push({
+				            title : encodeURIComponent('Angel'),
+				            url : 'http://www.nxenglish.com/music/Pop%20Music--Bands/The%20Beatles/07%20I%20Feel%20Fine.mp3',
+				            id : '2491',
+				            isfull : 'True'
+				        });
+				</script>
+				<div id="mainplayer" style="display:none;"></div>
+				<script type="text/javascript" charset="utf-8">	
+				 window.onload=playsong(0,true)
+				</script>
+		</div>
+	</body>
+</html>

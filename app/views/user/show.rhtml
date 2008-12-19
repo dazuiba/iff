@@ -1,0 +1,12 @@
+<%@title=@viewer.user.nick_name%>
+<h2>最喜欢的歌曲<h2/>
+<ul>
+<%@viewer.musics.each do|music|%>
+	<li><%= link_to music.name, "/music/#{music.id}"%></li>
+<%end%>
+</ul>
+<h2>最近的日记<h2/>
+<%= render :partial => "note/note",:collection=>@viewer.notes,:spacer_template=>"/note/note_spacer"%>
+
+<%= link_to "跟踪他", "/contacts/followtos/#{@viewer.user.id}",:method=>:put %>
+<%= link_to "加为好友", "/contacts/friends/#{@viewer.user.id}",:method=>:put %>

@@ -1,0 +1,20 @@
+<div id="main_top" class="artist_hatch_bg" >
+  <div style="float: left; margin-right: 10px;"> </div>
+  <div>
+    <h2><%=@title%></h2>
+    <br/>
+  </div>
+</div>
+<div style="clear: left;"/>
+<div id="main_hdr"> </div>
+<div id="main">
+  <div class="padded_container" id="albums">
+    <h2 style="">所有歌曲</h2>
+    <p>
+      <% @musics.each do |music|%>
+        <%= logo_link_to music,music_url(music)%>
+      <% end%>
+    </p>
+    <div style="clear: left;"/>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div id="search_results">
+  <h3>Artists matching '<%=@query%>'</h3>
+  <ul>
+   <% @singers.each do |s|%>
+    <li><%= link_to "#{s.name}",singer_url(s)%></li>
+   <% end %>
+  </ul>
+</div>

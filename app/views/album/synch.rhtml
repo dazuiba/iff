@@ -1,0 +1,24 @@
+<div id="rbar">
+  <div class="padded_container" id="actions">
+    <div title="Add this artist to your iLike list" style="cursor: pointer;" id="artist_add" class="nav_button">
+      <div style="color: rgb(226, 229, 233);" class="nav_button_right" id="artist_addremove_status">(click to add)</div>
+      <p>请对比来自<%=@remote_url%>的资源信息</p>
+    </div>
+  </div>
+  <div class="container_box">
+    <div class="padded_container" id="reco_emerging">
+      <h3>本专辑的资料</h3>
+      <p></p>
+    </div>
+  </div>
+  <div class="container_box">
+    <div class="padded_container" id="related_mainstream_artists">
+      <h3>包含曲目</h3>
+      <ul class="song_list">
+      <%@parser_musics.each do|music|%>
+      <li><%=music%></li>
+      <%end%>
+	  </ul>
+    </div>
+  </div>
+</div>

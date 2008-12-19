@@ -1,0 +1,20 @@
+<div id="main_top" class="artist_hatch_bg" >
+  <div style="float: left; margin-right: 10px;"> </div>
+  <div>
+    <h2><%=@album.name%></h2>
+    <br/>
+    <h3 style="padding-bottom: 10px;"> <%= link_to "#{@album.singer.name}",singer_url(@album.singer) %></h3>
+  </div>
+</div>
+<div style="clear: left;"/>
+<div id="main_hdr"> </div>
+<div id="main">
+  <div class="padded_container" id="most_played_songs">
+    <h2>该专辑包含的曲目</h2>
+    <ol style="margin-left:18px;">
+      <% @album.musics.each do |m|%>
+      <li> <%= link_to "#{m.name}",music_url(m)%></li>
+      <% end%>
+    </ol>
+  </div>
+</div>

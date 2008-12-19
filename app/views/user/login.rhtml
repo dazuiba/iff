@@ -1,0 +1,16 @@
+<form method="post">
+<div style="padding-left: 50px;">
+    <input type="hidden" value="http://www.douban.com/register" name="redir"/>
+    <br/>E-mail地址:<br/>
+    <input type="text" maxlength="60" size="24" name="email" tabindex="1"/><br/><br/>
+    密码:<br/>
+    <input type="password" value="" maxlength="20" size="10" name="password" tabindex="2"/>　　　<a href="/login?reset=password">忘记密码了</a><br/>
+    
+    <br/>
+    <input type="checkbox" name="remember" tabindex="3"/> 
+    <span class="pl">在这台电脑上记住我(一个月之内不用再登录)</span>
+    <br/><br/><br/>
+    <input type="submit" value="进入" class="butt" name="user_login" tabindex="4"/>
+    <%= error_messages_for('user') %>
+    </div>
+</form>

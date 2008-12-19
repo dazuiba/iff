@@ -1,0 +1,18 @@
+<h3>您的好友</h3>
+<% @friends.each do|user| %>
+	<%= link_to user.nick_name,"/user/#{user.id}" %>
+	<%= link_to "删", "/contacts/friends/#{user.id}",:method=>"delete",:confirm=>"确定解除好友？" %>
+<% end %>
+
+
+<h3>你跟踪的人</h3>
+<% @followtos.each do|user| %>
+	<%= link_to user.nick_name,"/user/#{user.id}" %>
+	<%= link_to "删", "/contacts/followtos/#{user.id}",:method=>"delete",:confirm=>"确定解除跟踪？" %>
+	<br>
+<% end %>
+
+<h3>跟踪你的人</h3>
+<% @followers.each do|user| %>
+	<%= link_to user.nick_name,"/user/#{user.id}" %>
+<% end %>

@@ -1,0 +1,42 @@
+<div id="header">
+  <a title="ifeelfine" href="/"><img class="logo" alt="ifeelfine" src="/images/logo.gif"/></a>
+  <div id="nav">
+  	  <a href="/" <%=top_menu_class("home")%>> <%= top_menu_text "home", "首页"%></a> 
+      <a href="/my/" <%=top_menu_class("my")%>> <%= top_menu_text "my", "我的主页"%></a> 
+      <a href="/contacts/" <%=top_menu_class("contacts")%>> <%= top_menu_text "contacts", "友邻"%></a>
+      <a href="/group/" <%=top_menu_class("group")%>> <%= top_menu_text "group", "小组"%></a>
+      <a href="/music/" <%=top_menu_class("walk_around")%>> <%= top_menu_text "walk_around", "随便看看"%></a>
+   </div>
+  <div id="searbar"> 
+       <span> 
+         <a href="javascript:void(0)" class="arrow"> <img class="down" src="/images/down.gif"/> <img class="up" src="/images/up.gif"/></a>
+         <div class="hidesub" id="dsearch"> 
+            <a href="/subject_search?cat=1001">歌曲</a>
+            <a href="/subject_search?cat=1002">歌手</a>
+         </div>
+        </span> 
+        <span class="submit">
+           	<input type="submit" value="搜索" class="butt" name="search_submit" style="display: none;"/>
+            <a class="butt" href="javascript:document.forms[0].submit()">搜索</a> 
+        </span> 
+        <span>
+         <input type="text" id="page_focus" value="" maxlength="60" size="22" name="q"/>
+       </span> 
+  </div>
+  <div class="clear"></div>
+  <div id="status">
+    <div id="subnav">
+    	<%= yield :subnav %>
+    </div>
+    <% content_for_user :guest do %>
+    	<span class="pl">你好，请 <a rel="nofollow" href="/login">登录</a> ?<a href="/register">注册</a></span></div>
+    <% end %>
+    <% content_for_user :login do %>
+    	<span class="pl"> 
+    		<%= link_to current_user.nick_name+"的设置", "/setting" %>
+    		<%= link_to "退出", "/logout" %>    		
+    	</span>
+    <% end %>
+    </div>
+  <div class="clear"/>
+</div>

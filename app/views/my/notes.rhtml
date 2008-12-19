@@ -1,0 +1,7 @@
+<% @title="我的日记" %>
+
+<%= render :partial => "note/note",:collection=>@notes,:spacer_template=>"/note/note_spacer"%>
+
+<% content_for :right_content do %>
+	<p class="indent"><a href="/note/new"><img src="/images/new_note.gif"/></a></p>
+<% end %>

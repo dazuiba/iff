@@ -1,0 +1,23 @@
+<div id="note-<%=note.id%>">
+  <div class="note-header">
+    <h3> <%= link_to note.title,"/note/#{note.id}",:class=>"ll",:title=>note.title %></h3>
+    <div style="margin-left: 4px;"><span class="pl"> <%= t note.created_at %></span></div>
+  </div>
+  <div class="clear"></div>
+  <br/>
+  <div style="display: none;" id="note_<%=note.id%>_short" class="note">
+  	<%= note.content %>
+  </div>
+  <div id="note_<%=note.id%>_full" class="note">
+		<%= note.content %>
+  </div>
+  <br/>
+  <div id="note_<%=note.id%>_footer">
+  	 <% content_for_user :owner,note.user_id do %>
+      <span class="gact gtleft"><a href="/note/edit/<%=note.id%>">> 修改</a> </span>
+      <span class="gact gtleft">
+       <%= link_to "删除","/note/destroy/#{note.id}",:method=>"delete" ,:confirm=>"删除这篇日记吗?" %>       
+      </span> 
+     <% end %>
+  </div>
+</div>

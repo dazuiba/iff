@@ -1,0 +1,6 @@
+$KCODE = 'u'
+require 'jcode'
+require 'lib/ext'
+require 'lib/search_fu'
+require 'lib/user_mailer'
+require 'lib/ordered_errors'

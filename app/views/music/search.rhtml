@@ -1,0 +1,28 @@
+<form method="get" action="/music/search" id="sspform">
+  <input type="text" name="q" id="q" style="width:150px;"/>
+  <input type="submit" value="搜索" class="butt"/>
+</form>
+
+<h2>相关歌手</h2>
+<div>	
+	<% @singers.each do|singer|%>
+		<span><%= link_to singer.name, "/singer/#{singer.id}" %> </span> <span>·</span>
+	<% end %>
+</div>
+<br>
+<h2>搜索结果</h2>
+<% @musics.each do|music| %>
+	<table width="100%">
+		<tbody>
+			<tr>
+				<td valign="top">
+					<div class="pl2">
+						<%= link_to music.name, "/music/#{music.id}"%> 演唱者：<%= link_to music.singer.name, "/singer/#{music.singer.id}"%>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<p class="ul"/>
+<% end %>
+<%= pager(@musics) %>
