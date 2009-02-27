@@ -1,0 +1,35 @@
+<h2>登录   · · · · · ·</h2>
+<form id="pop_win_login" style="width:350px;border-top:1px dashed #ccc;padding-top:2em" name="lzform" method="post" action="/login">
+    <div class="input">
+    <div class="login_input">
+        <span>Email:  </span>
+        <input type="text" name="email" class="text pop_email"/>
+    </div>
+    <div class="login_input">
+        <span>密  码: </span>
+        <input type="password" name="password" id="pop_password" class="text"/>
+         <a href="/login?reset=password" style="margin-left: 0.8em;">忘记密码了</a>
+    </div>
+    <div class="pop_rem">
+        <input type="checkbox" name="remember" id="pop_remember"/>
+        <label class="pl" for="pop_remember">在这台电脑上记住我</label>
+    </div>
+    <div class="pop_sub">
+    <input type="submit" class="submit" value="登录"/>            </div>
+    <a class="pop_reg" href="/register">>还没有注册...</a>
+    </div>
+</form>
+<script>
+(function(){
+var email=eval(get_cookie("ue")),pop_email=$(".pop_email");
+if(email&&email!=""){
+    pop_email.attr({value:email})
+    $("#pop_password").focus()
+}else{
+    pop_email.focus()
+}
+$('.pop_win_login').submit(function(){
+    set_cookie({regfromurl:location.href,regfromtitle:encodeURIComponent(document.title)})
+})
+})()
+</script>

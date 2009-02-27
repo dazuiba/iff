@@ -3,7 +3,6 @@
 
 class ApplicationController < ActionController::Base
    helper :all
-   layout 'default'
    rescue_from ActiveRecord::RecordInvalid,:with=>:render_invalid_record
    #rescue_from ActiveRecord::CannotDelete do|exception|
    #	  flash[:error]=exception.message

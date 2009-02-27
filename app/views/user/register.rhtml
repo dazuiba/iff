@@ -1,16 +1,198 @@
-<form  method="post">
-    <p class="pl">&gt; <a href="/login?redir=http%3A//www.douban.com/login">已注册请登录</a></p>
-    <br><br>
-    <div style="padding-left: 50px;"><span class="m">你的email地址:</span><br>
-    <input name="user[email]" size="24" maxlength="60" value="" type="text"><br>
-    <span class="pl">用来确认你的身份。</span><br><br><br>
-    <span class="m">给自己设一个密码:</span><br>
-    <input name="user[password]" size="10" maxlength="20" value="" type="password"><br>
-    <span class="pl">请使用英文字母、符号或数字。</span><br><br><br>
-    <span class="m">给自己起一个名号:</span><br>
-    <input name="user[nick_name]" size="10" maxlength="15" value="" type="text"><br>
-    <span class="pl">中、英文均可。</span><br><br>
-    
-    <br><input class="butt" value="完成注册" type="submit"></div>    
-    <%= error_message('user') %>
+<style type="text/css" media="screen">
+	.hint{display:none;}
+	.ct {
+		background:#EEF9EB none repeat scroll 0 0;
+		border:1px solid #DCF5D5;
+		padding:5px 0 5px 5px;
+		width:300px;
+   }
+</style>
+<form method="post">
+	<p class="pl">
+		&gt; <a href="/login?redir=http%3A//www.douban.com/login">已注册请登录</a>
+	</p><br>
+	<br>
+	<div style="padding-left: 50px;">
+		<span class="m">你的email地址:</span><br>
+		<input name="user[email]" id="email" size="24" maxlength="60" value="" type="text">
+		<span id="e_hint" class="attn hint">请输入Email地址</span>
+		<br>
+    <div id="e_correct">
+    	<span class="pl">证明你身份的*唯一*凭证</span>
+    </div>
+		<br>
+		<span class="m">给自己设一个密码:</span><br>
+		<input name="user[password]" id="password"  size="10" maxlength="20" value="" type="password">
+	  <span id="p_hint" class="attn hint">请输入密码</span>
+		<br>
+		<span class="pl">请使用英文字母、符号或数字。</span><br>
+		<br>
+		<br>
+		<span class="m">给自己起一个名号:</span><br>
+		<input name="user[nick_name]" id="name" size="10" maxlength="15" value="" type="text">
+		<span id="n_hint" class="attn hint">请输入你的名号</span>
+		<br>
+		<span class="pl">中、英文均可。</span><br>		
+		<br>
+		<br>
+		<input class="butt" value="完成注册" type="submit">
+	</div><%= error_message('user') %>
 </form>
+<script type="text/javascript">/*<![CDATA[*/
+$("#nav").css("visibility","hidden");
+$("#searbar").css("visibility","hidden");
+var email=$("#email"),e_hint=$("#e_hint"),e_correct=$("#e_correct");
+var passwd=$("#password"),p_hint=$("#p_hint");
+var name=$("#name"),n_hint=$("#n_hint");
+var button=$("#button");
+var email_reg = /^[_\.0-9a-zA-Z+-]+@([0-9a-zA-Z]+[0-9a-zA-Z-]*\.)+[a-zA-Z]{2,4}$/;
+var passwd_reg = /^(\w){4,20}/ ;
+var email_list = new Array('163.com','126.com', '139.com', '188.com', '2008.china.com', '2008.sina.com', '21cn.com', '263.net', 'china.com', 'chinaren.com', 'citiz.net', 'eyou.com', 'foxmail.com', 'gmail.com', 'hongkong.com', 'hotmail.com', 'live.cn', 'live.com', 'mail.china.com', 'msn.com', 'my3ia.sina.com', 'qq.com', 'sina.cn', 'sina.com', 'sina.com.cn', 'sogou.com', 'sohu.com', 'tom.com', 'vip.163.com', 'vip.qq.com', 'vip.sina.com', 'vip.sohu.com', 'vip.tom.com', 'yahoo.cn', 'yahoo.com', 'yahoo.com.cn', 'yahoo.com.hk', 'yahoo.com.tw', 'yeah.net');
+
+function DPA(s1, s2){
+    var m = new Array();
+    var i, j;
+    for(i=0; i < s1.length + 1; i++) m[i] = new Array(); // i.e. 2-D array
+
+    m[0][0] = 0; // boundary conditions
+
+    for(j=1; j <= s2.length; j++)
+        m[0][j] = m[0][j-1]-0 + 1; // boundary conditions
+
+    for(i=1; i <= s1.length; i++)                            // outer loop
+    {
+        m[i][0] = m[i-1][0]-0 + 1; // boundary conditions
+
+        for(j=1; j <= s2.length; j++)                         // inner loop
+        {
+            var diag = m[i-1][j-1];
+            if( s1.charAt(i-1) != s2.charAt(j-1) ) diag++;
+
+            m[i][j] = Math.min( diag,               // match or change
+            Math.min( m[i-1][j]-0 + 1,    // deletion
+            m[i][j-1]-0 + 1 ) ) // insertion
+        }//for j
+    }//for i
+   return m[s1.length][s2.length];
+}
+
+var email_value = '';
+var e_name = '';
+var e_domain = ''
+var e_tip_on = 0;
+
+function e_back(){
+    e_correct.html('<span class="pl">用此邮箱接收确认邮件才能完成注册。</span>');
+    passwd.focus();
+    e_tip_on = 0;
+}
+function e_set(){
+    email.attr('value', e_name + '@' + e_domain);
+    e_hint.fadeOut();
+    e_back();
+}
+function get_like(s){
+    r = 0;
+    v = s.split('@');
+    domain = v[1];
+    e_name = v[0];
+    dis = domain.length;
+    for (k=0; k < email_list.length; k++){
+        e = email_list[k];
+        d = DPA(domain, e);
+        if (d < dis){
+            dis = d;
+            e_domain = e;
+        }
+    }
+    if(dis && dis < 4){
+        r = 1;
+    }
+    return r;
+};
+
+function check_email(like){
+    e_hint.fadeOut();
+    r = 1;
+    s = email.attr('value');
+    if (!s){
+        r = 0;
+        e_hint.fadeIn();
+    }else if (!email_reg.exec(s)){
+        e_hint.html('请输入正确的Email地址');
+        e_hint.fadeIn();
+        r = 0;
+    }else{
+        if (like && get_like(s)){
+            as = ' <a id="yes_but" href="javascript:void(0)" onclick="e_set()">是</a>／<a href="javascript:void(0)" onclick="e_back()">不是</a>'
+            e_correct.html('<div class="ct"><span class="pl">你是否要输入' + e_name + '@</span>' + e_domain + as + '</div>');
+            $("#yes_but").focus();
+            e_tip_on = 1;
+        }else{
+            e_hint.fadeOut();
+            var url = '/j/register/is_registered?email='+s;
+            $.getJSON(url, function(j){
+                if (j.ok){
+                    e_hint.html('该Email已经注册过');
+                    e_hint.fadeIn();
+                    email_value = s;
+                    r = 0;
+                }
+                else{
+                    r = 1;
+                }
+            })
+        }
+    }
+    email_value = email.attr('value');
+    return r
+};
+function check_password(){
+    r = 1;
+    if (e_tip_on) return r;
+    s = passwd.attr('value');
+    if (!s){
+        r = 0;
+    }else if(s.length < 4){
+        p_hint.html('最少4个字符');
+        r = 0;
+    }else if (!passwd_reg.exec(s)){
+        p_hint.html('请使用英文字母、符号或数字');
+        r = 0;
+    }
+    if (r){
+        p_hint.fadeOut();
+    }else{
+        p_hint.fadeIn();
+    }
+    return r
+};
+function check_name(){
+    r = 1;
+    s = name.attr('value');
+    if (!s){
+        n_hint.fadeIn();
+        r = 0;
+    }else{
+        n_hint.fadeOut();
+    }
+    return r
+};
+email.blur(function(){
+    check_email(1);
+});
+name.blur(function(){
+    check_name();
+});
+passwd.blur(check_password);
+button.click(function(){
+    r1 = check_email(0);
+    r2 = check_password();
+    r3 = check_name();
+    if (r1 && r2 && r3){
+        return;
+    }else{
+        return false;
+    }
+});
+/*]]>*/</script>

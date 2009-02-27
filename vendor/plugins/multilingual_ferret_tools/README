@@ -1,0 +1,23 @@
+MultilngualFerretTools
+======================
+
+This plugin provides a multilingual-aware Analyzer for Ferret.  This analyzer is useful when 
+fields may contain characters from multiple languages.  Fields are broken into latin parts and 
+non-latin-parts- the latin parts are then processed with Ferret::Analysis::StandardAnalyzer, and 
+the non-latin parts are processed with Ferret::Analysis::RegExpAnalyzer.  By default, the RegExpAnalyzer 
+used considers each character as a distinct token.
+
+If you want to change the configuration of the delegated analyzers, you'll find that initialization 
+code in MultilingualFerretTools::Analyzer#token_stream_for.
+
+Example Usage
+=============
+
+class MyModel < ActiveRecord::Base
+  acts_as_ferret(
+    { :fields => { blah blah blah },
+    { :analyzer => MultilingualFerretTools::Analyzer.new }
+  )
+end
+  
+  

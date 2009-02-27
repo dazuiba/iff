@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>
+			<%=@title||"I Feel Fine!"%>
+		</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+		<%= stylesheet_link_tag "main" %>		
+		<% 
+		 js_to_include=["jquery","main"]
+		 if(js_array=@__js_include)
+		 	if (js_array.extract_options!)[:only]
+		 		js_to_include=js_array
+	 		else
+	 			js_to_include+=js_array
+ 			end
+ 	   end
+		%>
+		<%=  javascript_include_tag js_to_include  %>
+	</head>
+	<body>
+		<div id="maxw">
+			<form action="/music/search" method="get" name="ssform" id="ssform">
+					<%= render :partial => "layouts/head"%>
+				  <% if not @title.blank? %>
+				  	<h1><%= @title %></h1>
+				  <% end %>
+			</form>
+			<div id="main">
+				<div id="tablem">
+					<div id="in_tablem">
+						 <%= render_flash_messages %>
+						 <%= yield %>
+					</div>
+				</div>
+				<div id="tablerm">
+					<%= yield :right_content %>
+				</div>
+			</div>			
+			<%= render :partial => "layouts/foot" %>
+		</div>		
+	</body>
+</html>

@@ -539,7 +539,7 @@ Douban.init_review_full = function(o) {
 
 Douban.init_show_login = function(o){
     $(o).click(function(){
-        return pop_win.load('/javascripts/pop_win/login')
+        return pop_win.load('/pop_win/login')
     });
 }
 

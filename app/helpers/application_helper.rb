@@ -1,5 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+	def include_js(*js_array)
+		@__js_include=*js_array				
+	end
 	def clear_float
 	   %{<div class="clear"></div>}
 	end

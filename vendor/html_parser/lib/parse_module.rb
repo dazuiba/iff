@@ -1,19 +1,22 @@
 module ParseModule
+	
   def self.included(base)
   	base.extend ClassModule
 		super
   end
+  
   module ClassModule	
 		def meta(params) 
 			cattr_accessor :meta_hash
       self.meta_hash=params
 		end
 	end
+	
 	attr_reader :result
+	
 	def initialize(params)
 		@params=params
-	end
-	
+	end	
 	
 	def fetch
 		@result={}
@@ -49,6 +52,7 @@ module ParseModule
     set var,element
 		element
 	end
+	
 	def	set(var,value)
 		v=@result[var]
     if v.nil?
@@ -76,6 +80,7 @@ module ParseModule
 		open(self.class.to_s,'w'){|f|f<<@result.inspect}
 		p "save file success!"
 	end
+	
 	def	get_href_param(elm,key)
 	  elm[:href]=~Regexp.new(key+'=(\w+)')
 		$1
