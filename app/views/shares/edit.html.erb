@@ -1,0 +1,12 @@
+<h1>Editing shares</h1>
+
+<% form_for(@shares) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @shares %> |
+<%= link_to 'Back', shares_path %>

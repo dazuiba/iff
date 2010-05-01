@@ -1,6 +1,6 @@
 <form method="post">
 <div style="padding-left: 50px;">
-    <input type="hidden" value="http://www.douban.com/register" name="redir"/>
+	  <%= hidden_field(:tiny, params[:tiny]) if params[:tiny]%>
     <br/>E-mail地址:<br/>
     <input type="text" maxlength="60" size="24" name="email" tabindex="1"/><br/><br/>
     密码:<br/>

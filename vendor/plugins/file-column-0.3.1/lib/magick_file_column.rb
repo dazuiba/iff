@@ -81,7 +81,12 @@ module FileColumn # :nodoc:
   module Magick
 
     def self.file_column(klass, attr, options) # :nodoc:
-      require 'RMagick'
+      begin
+        require 'RMagick' 
+      rescue MissingSourceFile => e
+        return
+        STDERR.puts "RMagick not installed! #{e.message}"
+      end
       if options[:magick][:versions]
         options[:magick][:versions].each_pair do |name, value|
           if value.kind_of?(String)

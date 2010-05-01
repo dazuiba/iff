@@ -1,0 +1,17 @@
+<h1>New shares</h1>
+
+<% form_for(@share) do |f| %>
+  <%= f.error_messages %>         
+  <%= f.hidden_field :url %></td></tr>
+	
+	<table align="center">
+		<tbody>
+	    <tr><td align="center" class="pl2">标题: </td>
+	    <td> <%= f.text_field :title, :style => "width: 420px;" %> </tr>
+	    <tr><td valign="top" align="center">
+	    <br>内容
+	        </td><td><textarea style="width: 420px;" rows="16" name="m_text"><%= @share.description%></textarea></td></tr>
+	    <tr><td></td><td><input type="submit" value="保存" name="m_submit">&nbsp;&nbsp;&nbsp;
+	    <input type="submit" value="撤消" name="m_cancel">
+	    </td></tr></tbody></table>  
+<% end %>                          

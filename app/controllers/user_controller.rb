@@ -1,5 +1,6 @@
 class UserController < ApplicationController
 	before_filter :find_record,:except=>[:login,:logout,:register]
+
 	def login
 		return if request.get?
 		if @user=User.find_by_email_and_password(params[:email],params[:password])
@@ -10,22 +11,26 @@ class UserController < ApplicationController
 			@user.errors.add_to_base("你的email和密码不符")
 		end
 	end
-	def register
-		return if request.get?
-		@user=User.new params[:user]
+  
+	def register             
+  	@user=User.new params[:user]
+		return if request.get?      
 		@user.activate_code_create
 		if @user.save
       UserMailer.deliver UserMailer.create_reg_success(@user)
       render :action => "register_ok" 
     end
 	end
+
 	def logout
 		session[:user_id]=nil
 		redirect_to "/"
 	end
+
 	def show
 		@viewer=UserViewer.new @user,params
 	end
+
 	def activate
 		code=params[:code][0..31]
 		id=params[:code][32..params[:code].size]

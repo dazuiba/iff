@@ -1,0 +1,66 @@
+<% bookmark = "javascript:void((function(){var s=document.createElement('script'); s.setAttribute('src', 'http://#{request.raw_host_with_port}/javascripts/bookmarklet.js?noCache='+ +new Date()); document.body.appendChild(s)})())"%>
+<script type="text/javascript" charset="utf-8">
+	$(function(){    
+      $('#bookmarklet').live("click", function(){
+        alert('Ooops, you need to drag the Share! button to your browser bookmarks bar.')
+        $(this).blur();
+        return false;
+      });
+
+
+      $('#generic_bookmarklet').click(function(){
+        $('#browser-ff').hide();
+        $('#browser-generic').fadeIn('slow');
+      })
+
+      if ($.browser.msie && $.browser.version == "7.0"){
+        $('#ie-7').show();
+      } else if ($.browser.msie && $.browser.version == "8.0"){
+        $('#ie-8').show();
+      }
+
+
+      if ($.browser.msie){
+        $('#browser-ie').show();
+        $('#browser-generic').hide();
+      } else if ($.browser.mozilla){
+        $('#browser-ff').show();        
+	      $('#browser-ie').hide();
+        $('#browser-generic').hide();
+      }
+    });
+ 
+</script>
+
+
+<div id="share-info-install">
+  <div id="try-container">
+    <ul>
+      <li id="browser-ie"><h3><strong>Add Sharein to your browser</strong></h3>
+        <div>
+          <a id="bookmarklet" href="<%= bookmark %>"><img src="http://assets.sharein.com.s3.amazonaws.com/images/try_now/share.png?1259046427" alt="Share!"></a>
+          <span id="ie-8">Right click the button and add to your <a class="enabled_image" href="/images/try_now/add_as_favorite_ie8.png">Favorites Bar.</a><span id="ie-8-info"><br>Make sure your Favorites Bar is <a class="enabled_image" href="/images/try_now/enable_toolbar.png">enabled</a>.</span></span>
+          <span id="ie-7">Right click the button and add to your <a class="enabled_image" href="/images/try_now/add_as_favorite_ie7.png">Links Bar</a>. <span id="ie-7-info"><br>Make sure your Links Bar is <a class="enabled_image" href="/images/try_now/enable_toolbar_ie7.jpg">enabled</a>.</span></span>
+        </div>
+        <a class="install-help-video" rel="shadowbox;width=768;height=576" href="/videos/install-ie.flv"><span>Watch Install Video</span></a>
+      </li>
+      <li id="browser-ff" style="display: list-item;"><h3><strong>Add Sharein to your browser</strong></h3>
+        <div>
+          <a id="bookmarklet" href="<%= bookmark %>"><img src="http://assets.sharein.com.s3.amazonaws.com/images/try_now/share.png?1259046427" alt="Share!"></a>
+          Drag the button to your bookmarks toolbar or use our <a href="https://addons.mozilla.org/en-US/firefox/downloads/file/52900/sharein-0.4-fx.xpi">Firefox Plugin</a>.
+        </div>
+        <a class="install-help-video" rel="shadowbox;width=768;height=576" href="/videos/install-firefox.flv"><span>Watch Install Video</span></a>
+      </li>
+      <li id="browser-generic" style="display: none;"><h3><strong>Add Sharein to your browser</strong></h3>
+        <div>
+          <a id="bookmarklet" href="<%= bookmark %>"><img src="http://assets.sharein.com.s3.amazonaws.com/images/try_now/share.png?1259046427" alt="Share!"></a>
+          Drag the button to your bookmarks bar.
+        </div>
+        <a class="install-help-video" rel="shadowbox;width=768;height=576" href="/videos/install-firefox.flv"><span>Watch Install Video</span></a>
+      </li>
+    </ul>
+    <p id="install-continue">Next Step: <a href="/contacts/new">Import your contacts</a> and start sharing!</p>
+  </div>
+  <div class="clear"></div>
+</div>
+

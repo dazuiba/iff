@@ -1,4 +1,7 @@
-ActionController::Routing::Routes.draw do |map|	
+ActionController::Routing::Routes.draw do |map|
+  map.resources :shares
+  map.resources :users
+	      
 	map.connect '',:controller => "home",:action => 'index'
 	map.connect 'play.mp3',:controller=>"home",:action=>"re_music"	
 	map.connect 'login', :controller => "user",:action=>"login" 

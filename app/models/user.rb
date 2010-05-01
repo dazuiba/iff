@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   validates_format_of :logo,   
     :with => /^.*(.jpg|.JPG|.gif|.GIF|.png|.PNG|.bmp|.BMP)$/,   
-    :message => "只能上传JPG、GIF、PNG、BMP的图片文件"
+    :message => "只能上传JPG、GIF、PNG、BMP的图片文件", :unless => Proc.new{|record|record.logo.blank?}
     
 	file_column :logo, :magick => {:versions => { "l" => "160>","s"=>"48>" }}
   has_many :notes
@@ -30,12 +30,24 @@ class User < ActiveRecord::Base
 	validates_presence_of :nick_name, :on => :create, :message => "请输入名号"
 	
 	ordered_errors :email,:password,:nick_name
+
+  class << self
+    def current
+      @current
+    end
+
+    def current=(user)
+      @current = user
+    end
+  end
+
 	def activate_code_create(code_len = 8)
 		chars = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
     code_array =[]
     1.upto(code_len) { code_array << chars[rand(chars.length)] }
     self.activate_code = code_array.to_s
 	end	
+
 	def hex_activate_code
 		Digest::MD5.hexdigest(self.activate_code)
 	end

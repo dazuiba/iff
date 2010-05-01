@@ -6,15 +6,16 @@
 		padding:5px 0 5px 5px;
 		width:300px;
    }
-</style>
-<form method="post">
+</style>               
+
+<% form_for @user, :url=>"" do |f| -%>   
 	<p class="pl">
 		&gt; <a href="/login?redir=http%3A//www.douban.com/login">已注册请登录</a>
 	</p><br>
 	<br>
 	<div style="padding-left: 50px;">
 		<span class="m">你的email地址:</span><br>
-		<input name="user[email]" id="email" size="24" maxlength="60" value="" type="text">
+		<%= f.text_field :email, :id=>"email", :size => "24", :maxlength => "60" %>
 		<span id="e_hint" class="attn hint">请输入Email地址</span>
 		<br>
     <div id="e_correct">
@@ -22,7 +23,7 @@
     </div>
 		<br>
 		<span class="m">给自己设一个密码:</span><br>
-		<input name="user[password]" id="password"  size="10" maxlength="20" value="" type="password">
+		<%= f.password_field :password, :id=>"password", :size => "10", :maxlength => "20" %>
 	  <span id="p_hint" class="attn hint">请输入密码</span>
 		<br>
 		<span class="pl">请使用英文字母、符号或数字。</span><br>
@@ -36,8 +37,10 @@
 		<br>
 		<br>
 		<input class="butt" value="完成注册" type="submit">
-	</div><%= error_message('user') %>
-</form>
+	</div><%= error_message('user') %>    
+	
+
+<% end -%>          
 <script type="text/javascript">/*<![CDATA[*/
 $("#nav").css("visibility","hidden");
 $("#searbar").css("visibility","hidden");
